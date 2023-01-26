@@ -21,7 +21,9 @@ size_t	ft_strlen(const char *str)
 		return (0);
 	while (str[i] && str[i] != '\n')
 		i++;
-	return ((i + (str[i] == '\n')));
+	if (str[i] == 10)
+		i++;
+	return (i);
 }
 
 char	*ft_strjoin(char *str1, char *str2)
@@ -32,45 +34,39 @@ char	*ft_strjoin(char *str1, char *str2)
 	ret = malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
 	if (!ret)
 		return (NULL);
-	i = -1;
-	while (str1 && str1[++i])
+	i = 0;
+	while (str1 && str1[i])
+	{
 		ret[i] = str1[i];
-	i += (!str1);
+		i++;
+	}
+	free (str1);
 	while (*str2)
 	{
 		ret[i++] = *str2;
-		if (*str2++ == '\n')
+		if (*str2++ == 10)
 			break ;
 	}
 	ret[i] = 0;
-	free (str1);
 	return (ret);
 }
 
 int	nl(char *line)
 {
 	int	i;
-	int	j;
+	int	g;
+	int j;
 
-	i = -1;
-	j = -1;
-	while (line[++i])
+	i = 0;
+	g = 0;
+	j = 0;
+	while (line[i])
 	{
+		if (j == 1)
+			line[g++] = line[i];
 		if (line[i] == 10)
-		{
-			line[i++] = 0;
-			j = 0;
-			break ;
-		}
-		line[i] = 0;
-	}
-	if (j == 0)
-	{
-		while (line[i])
-		{
-			line[j++] = line[i];
-			line[i++] = 0;
-		}
+			j = 1;
+		line[i++] = 0;
 	}
 	return (j);
 }

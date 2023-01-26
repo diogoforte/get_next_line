@@ -19,16 +19,13 @@ char	*get_next_line(int fd)
 	int i;
 
 	i = 0;
-	line = NULL;
-	while (read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
+	if (read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
 	{
 		while(buf[i])
-		{
-			buf[i] = 0;
-			i++;
-		}
+			buf[i++] = 0;
 		return (NULL);
 	}
+	line = NULL;
 	while (read(fd, buf, BUFFER_SIZE) > 0 && *buf)
 	{
 		line = ft_strjoin(line, buf);
