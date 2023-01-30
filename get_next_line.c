@@ -14,36 +14,33 @@
 
 char	*get_next_line(int fd)
 {
-	char *line;
-	static char buf[BUFFER_SIZE + 1];
-	int i;
+	char		*line;
+	static char	buf[BUFFER_SIZE + 1];
+	int			i;
 
 	i = 0;
 	if (read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
 	{
-		while(buf[i])
+		while (buf[i])
 			buf[i++] = 0;
 		return (NULL);
 	}
 	line = NULL;
-	while (read(fd, buf, BUFFER_SIZE) > 0 && *buf)
+	while (*buf || read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		line = ft_strjoin(line, buf);
-		if (nl(buf) != -1)
-			{
-				break ;
-			}
+		if (nl(buf) != 0)
+			break ;
 	}
 	return (line);
 }
 
-/* 
-int main()
+/* int main()
 {
 	int i = 1;
 	int fd = 0;
 	char *line;
-	fd = open("./test.txt", O_RDONLY);
+	fd = open("", O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -51,6 +48,7 @@ int main()
 			break;
 		printf("line %d: %s", i, line);
 		i++;
+		free(line);
 	}
 	printf("\nfd = %d", fd);
 	free(line);
