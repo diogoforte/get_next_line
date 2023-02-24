@@ -38,20 +38,37 @@ char	*get_next_line(int fd)
 
 /* int main()
 {
-	int i = 1;
+	int a = 1;
 	int fd = 0;
+	int fd2 = 0;
+	int fd3 = 0;
 	char *line;
-	fd = open("", O_RDONLY);
+	char *line2;
+	char *line3;
+	fd = open("/home/diogo/Desktop/get_next_line/fd.txt", O_RDONLY);
+	fd2 = open("/home/diogo/Desktop/get_next_line/fd2.txt", O_RDONLY);
+	fd3 = open("/home/diogo/Desktop/get_next_line/fd3.txt", O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (line == NULL)
+		line2 = get_next_line(fd2);
+		line3 = get_next_line(fd3);
+		if (line == NULL && line2 == NULL && line3 == NULL)
 			break;
-		printf("line %d: %s", i, line);
-		i++;
+		if (line != NULL)
+			printf("line %d: %s\n", a, line);
+		if (line2 != NULL)
+			printf("line2 %d: %s\n", a, line2);
+		if (line3 != NULL)
+			printf("line3 %d: %s\n", a, line3);
+		a++;
 		free(line);
+		free(line2);
+		free(line3);
 	}
 	printf("\nfd = %d", fd);
+	printf("\nfd2 = %d", fd2);
+	printf("\nfd3 = %d", fd3);
 	free(line);
 	close(fd);
 	return (0);
