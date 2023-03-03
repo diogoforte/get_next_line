@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 	while (*(buf[fd]) || read(fd, buf[fd], BUFFER_SIZE) > 0)
 	{
 		line = ft_strjoin(line, buf[fd]);
-		if (nl(buf[fd]) != 0)
+		if (nl(buf[fd]) == 1)
 			break ;
 	}
 	return (line);

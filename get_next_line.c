@@ -29,7 +29,7 @@ char	*get_next_line(int fd)
 	while (*buf || read(fd, buf, BUFFER_SIZE) > 0)
 	{
 		line = ft_strjoin(line, buf);
-		if (nl(buf) != 0)
+		if (nl(buf) == 1)
 			break ;
 	}
 	return (line);
@@ -40,7 +40,7 @@ char	*get_next_line(int fd)
 	int i = 1;
 	int fd = 0;
 	char *line;
-	fd = open("", O_RDONLY);
+	fd = open("/home/diogo/Desktop/get_next_line/a.txt", O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(fd);
